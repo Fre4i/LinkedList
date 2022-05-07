@@ -42,6 +42,12 @@ struct list
             p = p->next;
         }
         cout << endl;
+
+        //for (unsigned int i = 0; i < size(); i++)
+        //{
+        //    cout << get(i)->val << ' ';
+        //}
+        //cout << endl;
     }
     Node* find(float _val)
     {
@@ -182,7 +188,22 @@ struct list
         }
         return list_res;
     }
+    //Вставка другого элемента перед выбранным элементом
+    void insert_index(int index, float num)
+    {
+        for (unsigned i = 0; i < size(); i++)
+        {
+            if (i == index)
+            {
+                Node* prev_el = get(i-1);
+                Node* next_el = get(i);
 
+                Node* el = new Node(num);
+                el->next = next_el;
+                prev_el->next = el;
+            }
+        }
+    }
     //Удаление чисел перед отрицательными значениями
     void deletePrevNegative()
     {
@@ -199,15 +220,20 @@ struct list
     void insertNums(float num)
     {
         int len = size();
-        for (int i = 0; i < len; i++)
+        for (int i = 0; i < size(); i++)
         {
             
             float t = get(i)->val;
             if ((int)t == t)
             {
-                if (int(t) % 2 == 0)
+                if (int(t) % 2 != 0)
                 {
-
+                    /*Node* prev_el = get(i - 1);
+                    Node* next_el = get(i);
+                    Node* ins_el = new Node(num);
+                    prev_el->next = ins_el;
+                    ins_el->next = next_el;*/
+                    insert_index(i, num);
                 }
             }
         }
@@ -277,14 +303,18 @@ int main()
     l.print();*/
     //l.print();
     list l1;
-    l1.push_back(3);
-    l1.push_back(-3);
     l1.push_back(4);
-    l1.push_back(-5);
+    l1.push_back(4);
+    l1.push_back(4);
+    l1.push_back(5);
 
     l1.print();
 
     l1.deletePrevNegative();
+
+    l1.print();
+
+    l1.insertNums(1);
 
     l1.print();
 
